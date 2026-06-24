@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>絵型 PNG 抽出</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">PATTERN EXTRACTOR</p>
+      <h1>PDFから絵型だけを、<br><span>きれいなPNGへ。</span></h1>
+      <p class="lead">PDFから最初の服の絵型（前・後）を切り出します。ファイルは外部へ送信されません。</p>
+    </header>
+
+    <section class="panel" aria-labelledby="upload-title">
+      <div class="step"><span>01</span><div><h2 id="upload-title">PDFを選ぶ</h2><p>ここへドロップ、またはボタンから選択</p></div></div>
+      <label class="dropzone" id="dropzone">
+        <input id="fileInput" type="file" accept="application/pdf,.pdf" />
+        <span class="upload-icon" aria-hidden="true">↑</span>
+        <strong>PDFを選択</strong>
+        <small>最初の絵型のみ処理します</small>
+      </label>
+      <div class="file-row hidden" id="fileRow">
+        <div class="file-icon">PDF</div>
+        <div><strong id="fileName"></strong><small id="fileMeta"></small></div>
+        <button class="text-button" id="replaceButton" type="button">変更</button>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="editorPanel" aria-labelledby="editor-title">
+      <div class="step"><span>02</span><div><h2 id="editor-title">前・後の範囲を確認</h2><p>青枠にFRONT、緑枠にBACKの服全体が入るように調整してください。</p></div></div>
+      <div class="toolbar">
+        <button class="secondary" id="resetBoxes" type="button">自動範囲に戻す</button>
+        <label class="quality">画質
+          <select id="qualitySelect">
+            <option value="1" selected>標準（870 × 436）</option>
+            <option value="2">高画質（1740 × 872）</option>
+            <option value="3">最高画質（2610 × 1308）</option>
+          </select>
+        </label>
+      </div>
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="previewCanvas"></canvas>
+        <div class="select-box front" id="frontBox"><span>FRONT</span><i class="handle nw" data-handle="nw"></i><i class="handle ne" data-handle="ne"></i><i class="handle sw" data-handle="sw"></i><i class="handle se" data-handle="se"></i></div>
+        <div class="select-box back" id="backBox"><span>BACK</span><i class="handle nw" data-handle="nw"></i><i class="handle ne" data-handle="ne"></i><i class="handle sw" data-handle="sw"></i><i class="handle se" data-handle="se"></i></div>
+      </div>
+      <div class="legend"><span><i class="blue"></i>FRONT</span><span><i class="green"></i>BACK</span><small>枠は移動・四隅で拡大縮小できます</small></div>
+      <div class="actions">
+        <button class="primary" id="downloadButton" type="button"><span>PNGを保存</span><b>↓</b></button>
+        <p id="status" role="status"></p>
+      </div>
+    </section>
+
+    <footer>PDF → PNG ・ ブラウザ内で完結</footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
